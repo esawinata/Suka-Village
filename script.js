@@ -77,4 +77,120 @@
       }, 300 + i * 150);
     });
   });
+
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Stagger children with delay class
+          entry.target.querySelectorAll('.delay-1').forEach(el => {
+            el.style.transitionDelay = '0.15s';
+          });
+          entry.target.querySelectorAll('.delay-2').forEach(el => {
+            el.style.transitionDelay = '0.30s';
+          });
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
+  );
+
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  /* ═══════ 5. PROMO COUNTDOWN ═══════ */
+  // Target: next Saturday midnight
+  function getNextSaturday() {
+    const now = new Date();
+    const day = now.getDay(); // 0=Sun … 6=Sat
+    const daysUntilSat = (6 - day + 7) % 7 || 7;
+    const target = new Date(now);
+    target.setDate(now.getDate() + daysUntilSat);
+    target.setHours(23, 59, 59, 0);
+    return target;
+  }
+
+  const countdownEnd = getNextSaturday();
+
+  const cdD = document.getElementById('cd-d');
+  const cdH = document.getElementById('cd-h');
+  const cdM = document.getElementById('cd-m');
+  const cdS = document.getElementById('cd-s');
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function updateCountdown() {
+    const now   = new Date();
+    const diff  = countdownEnd - now;
+
+    if (diff <= 0) {
+      cdD.textContent = cdH.textContent = cdM.textContent = cdS.textContent = '00';
+      return;
+    }
+
+    const days  = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    const mins  = Math.floor((diff % 3600000) / 60000);
+    const secs  = Math.floor((diff % 60000) / 1000);
+
+    cdD.textContent = pad(days);
+    cdH.textContent = pad(hours);
+    cdM.textContent = pad(mins);
+    cdS.textContent = pad(secs);
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  /* ═══════ 6. GALLERY — tilt on hover (desktop) ═══════ */
+  if (window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.g-item').forEach(item => {
+      item.addEventListener('mousemove', (e) => {
+        const rect   = item.getBoundingClientRect();
+        const x      = (e.clientX - rect.left) / rect.width  - 0.5;
+        const y      = (e.clientY - rect.top)  / rect.height - 0.5;
+        item.style.transform = `perspective(600px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) scale(1.02)`;
+      });
+      item.addEventListener('mouseleave', () => {
+        item.style.transform = '';
+        item.style.transition = 'transform 0.5s ease';
+      });
+      item.addEventListener('mouseenter', () => {
+        item.style.transition = 'transform 0.1s ease';
+      });
+    });
+  }
+
+  /* ═══════ 7. ROOM CARDS — staggered reveal ═══════ */
+  const roomObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const cards = document.querySelectorAll('.room-card');
+          cards.forEach((card, i) => {
+            setTimeout(() => card.classList.add('visible'), i * 140);
+          });
+          roomObserver.disconnect();
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  const roomsSection = document.querySelector('.rooms-grid');
+  if (roomsSection) roomObserver.observe(roomsSection);
+
+
+  /* ═══════ 8. HERO — parallax on scroll ═══════ */
+  const heroBg = document.querySelector('.hero-bg img');
+
+  function heroParallax() {
+    if (!heroBg) return;
+    const scrollY = window.scrollY;
+    heroBg.style.transform = `scale(1.05) translateY(${scrollY * 0.25}px)`;
+  }
+
+  window.addEventListener('scroll', heroParallax, { passive: true });
+
 })();
