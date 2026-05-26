@@ -193,4 +193,15 @@
 
   window.addEventListener('scroll', heroParallax, { passive: true });
 
+  /* ═══════ 8. HERO — parallax on scroll ═══════ */
+  const heroBg = document.querySelector('.hero-bg img');
+
+  function heroParallax() {
+    if (!heroBg) return;
+    const scrollY = window.scrollY;
+    heroBg.style.transform = `scale(1.05) translateY(${scrollY * 0.25}px)`;
+  }
+
+  window.addEventListener('scroll', heroParallax, { passive: true });
+
 })();
