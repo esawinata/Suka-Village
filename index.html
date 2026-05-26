@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Suka Village — Hidden Paradise in Sukabumi</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════ NAVBAR ═══════════════════════════════ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <span class="logo-icon"></span>
+        <span class="logo-text">Suka<em>Village</em></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#rooms">Room</a></li>
+        <li><a href="https://drive.google.com/file/d/1TcDSruaj-YE4sY1PIg3CDFe-Ii_RyZMw/view" target="_blank" rel="noopener">Menu</a></li>
+        <li><a href="#booking">Booking</a></li>
+        <li><a href="#location">Location</a></li>
+      </ul>
+      <a href="#booking" class="nav-cta">Reserve</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#about">About</a>
+      <a href="#rooms">Room</a>
+      <a href="https://drive.google.com/file/d/1TcDSruaj-YE4sY1PIg3CDFe-Ii_RyZMw/view" target="_blank" rel="noopener">Menu</a>
+      <a href="#booking">Booking</a>
+      <a href="#location">Location</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════ HERO ═══════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-bg">
+      <img src="https://a0.muscache.com/im/pictures/miso/Hosting-1356567231289501516/original/e164eb58-a009-4cd8-ac63-98dc0059caa0.jpeg?im_w=960" alt="Suka Village Villa" class="hero-img"/>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow fade-up">Kebun Sukalarang, Sukabumi</p>
+      <h1 class="hero-title fade-up delay-1">Welcome to<br/><em>Suka Village</em></h1>
+      <p class="hero-sub fade-up delay-2">
+        A hidden paradise where the whisper of bamboo and the scent of tropical earth invite you to breathe, rest, and simply be.
+      </p>
+      <div class="hero-btns fade-up delay-3">
+        <a href="#booking" class="btn-primary">Book Now</a>
+        <a href="#about" class="btn-ghost">Explore ↓</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span></span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ ABOUT ═══════════════════════════════ -->
+  <section id="about" class="section-about">
+    <div class="container reveal">
+      <div class="about-grid">
+        <div class="about-img-wrap">
+          <img src="https://a0.muscache.com/im/pictures/miso/Hosting-1356558427947654469/original/0208d40a-cbdc-4a0c-8590-ee431266d541.jpeg?im_w=960" alt="About Suka Village"/>
+          <div class="about-badge">Est. 2019</div>
+        </div>
+        <div class="about-text">
+          <span class="label">Our Story</span>
+          <h2>A Secret Garden<br/>Born from Love</h2>
+          <p>
+            Nestled deep within the lush tea gardens of Sukalarang, Suka Village was born from a simple dream — to create a sanctuary where modern comfort meets untouched nature. What once was a quiet family estate has blossomed into a beloved retreat for those seeking peace away from the city's noise.
+          </p>
+          <p>
+            Every cabin, every corner of our grounds, has been shaped with intention — to honour the land and give you space to reconnect with what truly matters.
+          </p>
+          <blockquote>
+            "The forest does not hurry, yet everything is accomplished."<br/>
+            <cite>— The Philosophy of Suka Village</cite>
+          </blockquote>
+          <div class="about-stats">
+            <div class="stat"><strong>5+</strong><span>Years of Joy</span></div>
+            <div class="stat"><strong>12+</strong><span>Villas & Cabins</span></div>
+            <div class="stat"><strong>4.9★</strong><span>Guest Rating</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- ═══════════════════════════════ PROMO ═══════════════════════════════ -->
+  <section id="booking" class="section-promo reveal">
+    <div class="promo-inner">
+      <div class="promo-text">
+        <span class="promo-tag">Limited Offer</span>
+        <h2>Weekend Special<br/><em>25% OFF</em></h2>
+        <p>Escape before the seats run out. Our weekend package includes breakfast, welcome drinks, and a guided garden walk.</p>
+        <div class="countdown" id="countdown">
+          <div class="cd-block"><span id="cd-d">00</span><label>Days</label></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-block"><span id="cd-h">00</span><label>Hours</label></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-block"><span id="cd-m">00</span><label>Mins</label></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-block"><span id="cd-s">00</span><label>Secs</label></div>
+        </div>
+        <a href="#" class="btn-primary light">Reserve Now →</a>
+      </div>
+      <div class="promo-img">
+        <img src="https://a0.muscache.com/im/pictures/miso/Hosting-1356546507131683414/original/3ce3c0cf-bed7-4d87-90c8-5d4c56c4f538.jpeg?im_w=960" alt="Promo"/>
+      </div>
+    </div>
+  </section>
+  
+<body>
+<html>
