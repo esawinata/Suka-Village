@@ -345,13 +345,71 @@
     show('modalStep1');
   };
 
-  window.confirmBooking = function() {
-    // Generate simple ref code
-    const ref = 'SV-' + Date.now().toString(36).toUpperCase().slice(-6);
-    document.getElementById('successName').textContent = modalState.leadName;
-    document.getElementById('successRef').textContent  = ref;
-    hide('modalStep2');
-    show('modalStep3');
+  /* ═══════ SUPABASE CONFIG ═══════
+     Ganti YOUR_SUPABASE_ANON_KEY dengan anon key dari:
+     Supabase Dashboard → Settings → API → anon public
+  ═══════════════════════════════ */
+  const SUPABASE_URL    = 'https://qihqfytjqojwsaavkmif.supabase.co';
+  const SUPABASE_ANON   = 'YOUR_SUPABASE_ANON_KEY'; // ← ganti ini
+
+  async function insertBooking(data) {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/bookings`, {
+      method: 'POST',
+      headers: {
+        'Content-Type':  'application/json',
+        'apikey':        SUPABASE_ANON,
+        'Authorization': `Bearer ${SUPABASE_ANON}`,
+        'Prefer':        'return=representation',
+      },
+      body: JSON.stringify(data),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || `HTTP ${res.status}`);
+    }
+    return res.json();
+  }
+
+  window.confirmBooking = async function() {
+    const btn = document.querySelector('.btn-confirm');
+    btn.textContent = 'Menyimpan...';
+    btn.disabled = true;
+
+    const ref = 'SV-' + Date.now().toString(36).toUpperCase().slice(-8);
+
+    const payload = {
+      ref_code:          ref,
+      room_name:         modalState.room,
+      lead_name:         modalState.leadName,
+      check_in:          document.getElementById('checkIn').value,
+      check_out:         document.getElementById('checkOut').value,
+      nights:            modalState.nights,
+      guests:            modalState.guests,
+      base_price:        modalState.basePrice,
+      total_price:       modalState.total,
+      has_weekend_promo: modalState.hasWeekend,
+      status:            'pending',
+    };
+
+    try {
+      await insertBooking(payload);
+      document.getElementById('successName').textContent = modalState.leadName;
+      document.getElementById('successRef').textContent  = ref;
+      hide('modalStep2');
+      show('modalStep3');
+    } catch (err) {
+      console.error('Supabase error:', err);
+      showError(`Gagal menyimpan booking: ${err.message}. Coba lagi atau hubungi kami langsung.`);
+      // Re-show error on step 2 area
+      const errBox = document.createElement('p');
+      errBox.className = 'form-error';
+      errBox.style.marginTop = '12px';
+      errBox.textContent = `Gagal menyimpan: ${err.message}`;
+      document.querySelector('.confirm-btns').before(errBox);
+    } finally {
+      btn.textContent = '✓ Konfirmasi Booking';
+      btn.disabled = false;
+    }
   };
 
   function showError(msg) {
