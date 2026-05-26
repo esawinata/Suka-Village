@@ -54,7 +54,9 @@
       spans[2].style.transform = '';
     });
   });
-    /* ═══════ 3. SMOOTH SCROLLING ═══════ */
+
+
+  /* ═══════ 3. SMOOTH SCROLLING ═══════ */
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       const target = document.querySelector(this.getAttribute('href'));
@@ -78,6 +80,7 @@
     });
   });
 
+  // Reveal sections on scroll
   const revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach(entry => {
@@ -98,6 +101,7 @@
   );
 
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
 
   /* ═══════ 5. PROMO COUNTDOWN ═══════ */
   // Target: next Saturday midnight
@@ -143,6 +147,7 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
+
   /* ═══════ 6. GALLERY — tilt on hover (desktop) ═══════ */
   if (window.matchMedia('(hover: hover)').matches) {
     document.querySelectorAll('.g-item').forEach(item => {
@@ -161,6 +166,7 @@
       });
     });
   }
+
 
   /* ═══════ 7. ROOM CARDS — staggered reveal ═══════ */
   const roomObserver = new IntersectionObserver(
@@ -181,17 +187,6 @@
   const roomsSection = document.querySelector('.rooms-grid');
   if (roomsSection) roomObserver.observe(roomsSection);
 
-
-  /* ═══════ 8. HERO — parallax on scroll ═══════ */
-  const heroBg = document.querySelector('.hero-bg img');
-
-  function heroParallax() {
-    if (!heroBg) return;
-    const scrollY = window.scrollY;
-    heroBg.style.transform = `scale(1.05) translateY(${scrollY * 0.25}px)`;
-  }
-
-  window.addEventListener('scroll', heroParallax, { passive: true });
 
   /* ═══════ 8. HERO — parallax on scroll ═══════ */
   const heroBg = document.querySelector('.hero-bg img');
